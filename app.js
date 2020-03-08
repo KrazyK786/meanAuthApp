@@ -12,12 +12,16 @@ const users = require('./routes/users');
 // Port Number
 const port = 3000;
 
+// Set Static Folder
+app.use(express.static(path.join((__dirname, 'public'))));
+
 // CORS Middleware
 app.use(cors());
 
 // Body Parser Middleware
 app.use(bodyParser.json());
 
+// users route
 app.use('/users', users);
 
 // Index Route
