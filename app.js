@@ -32,6 +32,10 @@ app.use(express.static(path.join((__dirname, 'public'))));
 // CORS Middleware
 app.use(cors());
 
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Body Parser Middleware
 app.use(bodyParser.json());
 
