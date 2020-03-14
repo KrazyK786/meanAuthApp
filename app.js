@@ -36,6 +36,8 @@ app.use(cors());
 app.use(passport.initialize());
 app.use(passport.session());
 
+require('./config/passport')(passport);
+
 // Body Parser Middleware
 app.use(bodyParser.json());
 
