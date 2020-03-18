@@ -5,8 +5,9 @@ export class ValidateService {
 
   constructor() { }
 
+  // changed to use bang operator to catch empty string on fields changed on form re-submission
   validateRegister(user){
-    if((user.name == undefined) || (user.email == undefined) || (user.username == undefined) || (user.password == undefined)){
+    if(!user.name || !user.email || !user.username || !user.password){
       return false;
     }
     else {
