@@ -41,8 +41,11 @@ N - Node
 
 - Angular 2
 : 
--Angular 2 flash messages
+- Angular 2 flash messages
 :
 
--Angular Services? (Validate, auth)
+- Angular Services? (Validate, auth)
+:
+
+- Bootswatch
 :

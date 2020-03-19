@@ -4,6 +4,8 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthService {
+  authToken: any;
+  user: any;
 
   constructor(private http:Http) { }
 
