@@ -44,5 +44,5 @@ N - Node
 -Angular 2 flash messages
 :
 
--Angular Services? (Validate Service)
+-Angular Services? (Validate, auth)
 :
