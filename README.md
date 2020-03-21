@@ -52,3 +52,6 @@ N - Node
 
 - Bootstrap
 : https://getbootstrap.com/docs/4.4/examples/
+
+- Angular2-JWT
+: 
