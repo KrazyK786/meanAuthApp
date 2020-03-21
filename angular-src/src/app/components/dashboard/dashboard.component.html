@@ -1,5 +1,7 @@
-<h2 class="page-header">Dashboard</h2>
-<p>
-  Welcome to your Dashboard!
-<!--  Welcome to your Dashboard {{user.username}}-->
-</p>
+<div *ngIf="user">
+  <h2 class="page-header">Dashboard</h2>
+  <p>
+  <!--  Welcome to your Dashboard!-->
+    Welcome to your Dashboard {{user.name}}!
+  </p>
+</div>
