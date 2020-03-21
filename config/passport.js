@@ -15,7 +15,7 @@ module.exports = function(passport){
             }
 
             if (user){
-                return done(null, true);
+                return done(null, user);
             }
             else{
                 return done(null, false);
