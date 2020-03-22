@@ -48,6 +48,8 @@ export class AuthService {
 
   // TODO - figure out why getProfile isnt returning a profile? Need to be observable?
   // headers are bad?
+  // changed headers to match Angular 6 documentation and added Observable<Data> as return type
+  // commented code represents previous setup for Angular 2
   getProfile(): Observable<Data>{
     // let headers = new Headers();
     // formerly headers
@@ -59,7 +61,7 @@ export class AuthService {
         'Authorization':this.authToken
       })
     }
-    console.log(this.authToken);
+    // console.log(this.authToken);
     // headers.set('Content-Type', 'application/json');
     // headers.set('Authorization', this.authToken);
     // console.log(headers);

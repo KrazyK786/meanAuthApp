@@ -50,6 +50,11 @@ app.get('/', (req, res) => {
     res.send('Invalid endpoint');
 });
 
+// redirect all other traffic (solves 'cannot GET' issue
+app.get('*', (req,res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'));
+})
+
 // Start Server
 app.listen(port, () => {
     console.log('Server is started on port ' + port);
