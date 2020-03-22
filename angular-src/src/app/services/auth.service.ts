@@ -1,39 +1,74 @@
+
+import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import {Http, Headers} from "@angular/http";
-import 'rxjs/add/operator/map';
-import {tokenNotExpired} from "angular2-jwt";
+// import {Http, Headers} from "@angular/http";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpHeaders} from "@angular/common/http";
+
+// import {tokenNotExpired} from "angular2-jwt";
+import {JwtHelperService} from "@auth0/angular-jwt";
+
+import {Data} from "../interfaces/data";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class AuthService {
   authToken: any;
   user: any;
 
-  constructor(private http:Http) { }
+
+  constructor(
+    // private http:Http,
+    private http:HttpClient,
+    public jwtHelper: JwtHelperService
+  ) {
+    // const httpOptions = {
+    //   headers: new HttpHeaders(),
+    //   'Content-Type':'application/json',
+    // };
+  }
 
   registerUser(user){
-    let headers = new Headers();
+    // let headers = new Headers();
+    let headers = new HttpHeaders();
     headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/users/register', user, {
+    return this.http.post<Data>('http://localhost:3000/users/register', user, {
       headers:headers
-    }).map(res => res.json());
+    }).pipe(map(res => res));
   }
 
   authenticateUser(user){
-    let headers = new Headers();
+    // let headers = new Headers();
+    let headers = new HttpHeaders();
     headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/users/authenticate', user, {
+    return this.http.post<Data>('http://localhost:3000/users/authenticate', user, {
       headers:headers
-    }).map(res => res.json());
+    }).pipe(map(res => res));
   }
 
-  getProfile(){
-    let headers = new Headers();
+  // TODO - figure out why getProfile isnt returning a profile? Need to be observable?
+  // headers are bad?
+  getProfile(): Observable<Data>{
+    // let headers = new Headers();
+    // formerly headers
+    // let headers = new HttpHeaders();
     this.loadToken();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', this.authToken);
-    return this.http.get('http://localhost:3000/users/profile', {
-      headers:headers
-    }).map(res => res.json());
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization':this.authToken
+      })
+    }
+    console.log(this.authToken);
+    // headers.set('Content-Type', 'application/json');
+    // headers.set('Authorization', this.authToken);
+    // console.log(headers);
+    return this.http.get<Data>('http://localhost:3000/users/profile', httpOptions
+    //   {
+    //   headers:headers
+    // }
+    );
+    // }).pipe(map(res => res));
   }
 
   storeUserData(token, user){
@@ -48,9 +83,10 @@ export class AuthService {
     this.authToken = token;
   }
 
-  loggedIn(){
+  loggedIn(): boolean {
     // explicitly named token since it no longer looks for id_token by default
-    return tokenNotExpired('id_token');
+    // return tokenNotExpired('id_token');
+    return !this.jwtHelper.isTokenExpired();
   }
 
   logout(){

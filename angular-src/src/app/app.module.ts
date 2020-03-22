@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+// import { HttpModule } from '@angular/http';
+import {HttpClientModule} from "@angular/common/http";
 import {RouterModule, Routes} from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -14,8 +15,9 @@ import { ProfileComponent } from './components/profile/profile.component';
 
 import {ValidateService} from "./services/validate.service";
 import {AuthService} from "./services/auth.service";
-import {FlashMessagesModule} from "angular2-flash-messages";
+import {FlashMessagesModule} from "angular2-flash-messages/module";
 import {AuthGuard} from "./guards/auth.guard";
+import {JwtHelperService, JwtModule} from "@auth0/angular-jwt";
 
 const appRoutes: Routes = [
   {path:'', component: HomeComponent},
@@ -24,6 +26,10 @@ const appRoutes: Routes = [
   {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
   {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]}
 ]
+
+export function tokenGetter() {
+  return localStorage.getItem("id_token");
+}
 
 @NgModule({
   declarations: [
@@ -38,11 +44,19 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
+    // HttpModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes),
-    FlashMessagesModule.forRoot()
+    FlashMessagesModule.forRoot(),
+    JwtModule.forRoot({
+      config:{
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ["localhost:3001"],
+        blacklistedRoutes: ["example.com"]
+      }
+    })
   ],
-  providers: [ValidateService, AuthService, AuthGuard],
+  providers: [ValidateService, AuthService, AuthGuard, JwtModule, JwtHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
