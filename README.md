@@ -3,7 +3,13 @@ E - Express
 A - Angular
 N - Node
 
-###Dependencies
+###Installation
+
+ - run npm start
+   - to test/build Angular changes, nav to angular-src folder and run ng serve
+   - when changes are complete, run ng build to build into public folder of project
+
+###Dependencies & Technologies
 
 - Cors (Cross-origin resource sharing)
 : Middleware that allows you to make a request from a different domain name.
@@ -39,19 +45,27 @@ N - Node
 - passport-jwt
 : A Passport strategy for authenticating with a JSON Web Token. This module lets you authenticate endpoints using a JSON web token. It is intended to be used to secure RESTful endpoints without sessions.
 
-- Angular 2
-: 
-- Angular 2 flash messages
-:
+- ~~Angular 2~~ Angular 6
+: Angular is a typescript based open-source web application framework.
+Updates to Angular 2 flash messages required Angular 6,
+upgrading dependencies
+  - HttpHeaders instead of Headers
+  - @auth0/angular-jwt instead of Angular2-jwt
 
-- Angular Services? (Validate, auth)
-:
+- Angular 2 flash messages
+: used to display flash messages
+
+- Angular Services (Validate, auth)
+: used to fetch data for components
+  - https://angular.io/tutorial/toh-pt4#why-services
 
 - Bootswatch
-: https://bootswatch.com/
+: pre-made bootstrap themes to base ui off of
+  - https://bootswatch.com/
 
 - Bootstrap
 : https://getbootstrap.com/docs/4.4/examples/
 
-- Angular2-JWT
-: 
+- ~~Angular2-JWT~~ @auth0/angular-jwt
+: utilized to interact with JSON web tokens. Upgraded to be compatible with Angular 2
+  - https://github.com/auth0/angular2-jwt#usage-injection

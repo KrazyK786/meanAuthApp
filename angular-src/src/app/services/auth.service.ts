@@ -46,9 +46,7 @@ export class AuthService {
     }).pipe(map(res => res));
   }
 
-  // TODO - figure out why getProfile isnt returning a profile? Need to be observable?
-  // headers are bad?
-  // changed headers to match Angular 6 documentation and added Observable<Data> as return type
+  // changed headers to match Angular 6 documentation and added Observable<Data> as return type -https://angular.io/guide/http#http-headers
   // commented code represents previous setup for Angular 2
   getProfile(): Observable<Data>{
     // let headers = new Headers();
